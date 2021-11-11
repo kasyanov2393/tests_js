@@ -1,19 +1,26 @@
-const appElement = document.querySelector('#app');
+class App {
+    constructor() {
+        this._element = document.createElement('div');
+        this._element.setAttribute('id', 'app');
+    }
 
-export const showApp = () => {
-    appElement.style.display = 'block';
-};
+    showApp() {
+        document.body.appendChild(this._element);
+    }
 
-export const hideApp = () => {
-    appElement.style.display = 'none';
-};
+    hideApp() {
+        document.body.removeChild(this._element);
+    }
 
-export const putHtmlInApp = (text) => {
-    appElement.innerHTML = text;
-};
+    putHtmlInApp(text) {
+        this._element.innerHTML = text;
+    }
 
-export const addEventListenersToButtons = (listener) => {
-    Array.from(appElement.querySelector('button')).forEach((button) => {
-        button.addEventListener('click', listener);
-    });
-};
+    addEventListenersToButtons(listener) {
+        this._element.querySelectorAll('button').forEach((button) => {
+            button.addEventListener('click', listener);
+        });
+    }
+}
+
+export default App;

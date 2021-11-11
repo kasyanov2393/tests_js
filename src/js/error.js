@@ -1,13 +1,22 @@
-const errorElement = document.querySelector('#error');
+class Error {
+    constructor() {
+        this._element = document.createElement('div');
+        this._element.setAttribute('id', 'error');
+        this._element.style.display = 'none';
+        document.querySelector('#app').append(this._element);
+    }
 
-export const showError = () => {
-    errorElement.style.display = 'block';
-};
+    showError() {
+        this._element.style.display = 'block';
+    }
 
-export const hideError = () => {
-    errorElement.style.display = 'none';
-};
+    hideError() {
+        this._element.style.display = 'none';
+    }
 
-export const putHtmlInError = (text) => {
-    errorElement.innerHTML = text;
-};
+    putHtmlInError(text) {
+        this._element.innerHTML = text;
+    }
+}
+
+export default Error;

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOM Manipulation testing should add element into #app block 1`] = `
+App {
+  "_element": <div
+    id="app"
+  >
+    some text
+  </div>,
+}
+`;

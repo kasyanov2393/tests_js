@@ -1,25 +1,29 @@
-import { addEventListenersToButtons, putHtmlInApp, showApp } from './app';
-import { putHtmlInError, showError, hideError } from './error';
-import { hideLoader, showLoader } from './loader';
+import App from './app';
+import Error from './error';
+import Loader from './loader';
 import { getItemsRequest, toggleFavoriteRequest } from './requests';
 
 const LOADING_ERROR_MESSAGE = 'Произошла ошибка, попробуйте ещё раз.';
 const LOADING_MESSAGE = 'Загрузка...';
 
+const app = new App();
+const loader = new Loader();
+const error = new Error();
+
 export default () => {
-    hideError();
-    showLoader();
+    error.hideError();
+    loader.showLoader();
 
     getItemsRequest()
         .then(({ data }) => {
             if (data.result !== 'ok' || typeof data.html === 'undefined') {
-                putHtmlInError(LOADING_ERROR_MESSAGE);
-                showError();
+                error.putHtmlInError(LOADING_ERROR_MESSAGE);
+                error.showError();
             } else {
-                putHtmlInApp(data.html);
-                showApp();
+                app.putHtmlInApp(data.html);
+                app.showApp();
 
-                addEventListenersToButtons((e) => {
+                app.addEventListenersToButtons((e) => {
                     e.preventDefault();
 
                     e.currentTarget.textContent = LOADING_MESSAGE;
@@ -37,10 +41,10 @@ export default () => {
             }
         })
         .catch((e) => {
-            putHtmlInError(e.message);
-            showError();
+            error.putHtmlInError(e.message);
+            error.showError();
         })
         .finally(() => {
-            hideLoader();
+            loader.hideLoader();
         });
 };
